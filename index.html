@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Bank | Premium Food Service</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* === Global Variables & Reset === */
+        :root {
+            --primary-dark: #1a1a1a;
+            --accent-gold: #c5a059;
+            --text-light: #f9f9f9;
+            --text-dark: #333333;
+            --bg-light: #fdfdfd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* === Hero Section & Slider === */
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: var(--primary-dark);
+        }
+
+        .slider-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* Dark overlay to make logo pop */
+        .slider-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: var(--text-light);
+            padding: 0 20px;
+        }
+
+        .hero-logo {
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .hero-logo span {
+            color: var(--accent-gold);
+        }
+
+        .hero-tagline {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* === Floating WhatsApp Icon === */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* === The Three Service Pillars === */
+        .pillars-section {
+            padding: 80px 10%;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--primary-dark);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .pillar-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .pillar-img-wrapper {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .pillar-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .pillar-card:hover .pillar-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .pillar-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .pillar-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .pillar-desc {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .explore-btn {
+            display: inline-flex;
+            align-items: center;
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            width: fit-content;
+        }
+
+        .explore-btn i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .explore-btn:hover {
+            color: var(--primary-dark);
+        }
+
+        .explore-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* === Footer === */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* === Responsive Design === */
+        @media (max-width: 768px) {
+            .hero-logo {
+                font-size: 3.5rem;
+            }
+            .pillars-section {
+                padding: 60px 5%;
+            }
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 25px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="slider-container">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+        </div>
+        <div class="slider-overlay"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-logo">Food <span>Bank</span></h1>
+            <p class="hero-tagline">Premium & Thoughtful Catering</p>
+        </div>
+    </header>
+
+    <a href="#" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <section class="pillars-section">
+        <h2 class="section-title">Our Signature Services</h2>
+        
+        <div class="pillars-grid">
+            
+            <div class="pillar-card">
+                <div class="pillar-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1505935428862-770b6f24f629?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Corporate Food Boxes">
+                </div>
+                <div class="pillar-content">
+                    <h3 class="pillar-title">Corporate Excellence</h3>
+                    <p class="pillar-desc">This brand offers premium food boxes for corporate events and organizations looking to cater to distinguished guests with style and professionalism.</p>
+                    <a href="corporate-packages.html" class="explore-btn">Click Here <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1543168256-4154204e4c30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Food Gift Baskets">
+                </div>
+                <div class="pillar-content">
+                    <h3 class="pillar-title">Heartfelt Gifting</h3>
+                    <p class="pillar-desc">We curate beautiful food gift baskets and boxes for those who want to send love and nourishment to family, friends, colleagues, or partners.</p>
+                    <a href="gifting-options.html" class="explore-btn">Click Here <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Meal Prep Containers">
+                </div>
+                <div class="pillar-content">
+                    <h3 class="pillar-title">Busy Lifestyle Meal Prep</h3>
+                    <p class="pillar-desc">Designed for 9-to-5 workers and busy entrepreneurs. We handle your home meal prep with authentic Nigerian flavors so you can reclaim your time.</p>
+                    <a href="meal-prep-menu.html" class="explore-btn">Click Here <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Food Bank. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        const slideInterval = 5000; // Change image every 5 seconds
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length; 
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Start the slider loop
+        setInterval(nextSlide, slideInterval);
+    </script>
+</body>
+</html>
